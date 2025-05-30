@@ -11,7 +11,11 @@ export default class IdeaBoard {
     this.parent = parent;
     this.field = field;
     this.params = params;
-    this.setValue = setValue;
+
+    this.setValue = (field, value) => {
+      console.log('UPDATING VALUE', field, value);
+      setValue(field, value);
+    };
 
     // Callbacks to call when parameters change
     this.changes = [];
@@ -37,9 +41,7 @@ export default class IdeaBoard {
     // Errors (or add your own)
     this.$errors = this.$container.find('.h5p-errors');
 
-    const boardParams = (this.parent instanceof H5PEditor.Library) ?
-      this.parent.params.params :
-      this.parent.params;
+    const boardParams = (this.parent instanceof H5PEditor.Library) ? this.parent.params.params : this.parent.params;
 
     const viewUberName = Object
       .keys(H5PEditor.loadedCallbacks)
@@ -181,5 +183,10 @@ export default class IdeaBoard {
     this.backgroundColorField.changes.push((change) => {
       this.ideaBoardView.setBackgroundColor(this.backgroundColorField.params);
     });
+  }
+
+  updateValue(value) {
+    this.params = value;
+    this.setValue(this.field, this.params);
   }
 }
