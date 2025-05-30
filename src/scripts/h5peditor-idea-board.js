@@ -11,11 +11,7 @@ export default class IdeaBoard {
     this.parent = parent;
     this.field = field;
     this.params = params;
-
-    this.setValue = (field, value) => {
-      console.log('UPDATING VALUE', field, value);
-      setValue(field, value);
-    };
+    this.setValue = setValue;
 
     // Callbacks to call when parameters change
     this.changes = [];
