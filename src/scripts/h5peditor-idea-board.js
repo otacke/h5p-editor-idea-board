@@ -181,8 +181,12 @@ export default class IdeaBoard {
     });
   }
 
-  updateValue(value) {
-    this.params = value;
+  /**
+   * Update board parameter Values.
+   * @param {object} values Values to be stored. Must match the field's params!
+   */
+  updateValue(values) {
+    this.params = values;
     this.setValue(this.field, this.params);
   }
 }
