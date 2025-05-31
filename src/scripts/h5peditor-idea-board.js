@@ -60,6 +60,10 @@ export default class IdeaBoard {
       this.passReadies = false;
       this.handleParentReady();
     });
+
+    window.addEventListener('resize', () => {
+      this.ideaBoardView.trigger('resize');
+    });
   }
 
   ready(callback) {
