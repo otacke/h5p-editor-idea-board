@@ -25,7 +25,7 @@ export default class IdeaBoard {
     });
 
     // Instantiate original field (or create your own and call setValue)
-    this.fieldInstance = new H5PEditor.widgets[this.field.type](this.parent, this.field, this.params, this.setValue);
+    this.fieldInstance = new H5PEditor.widgets[this.field.type](this.parent, this.field, this.params, () => {});
 
     // Relay changes
     if (this.fieldInstance.changes) {
@@ -127,9 +127,6 @@ export default class IdeaBoard {
 
   makeCardsListInstanceAvailable() {
     this.cardsListInstance = H5PEditor.findField('cards', this.fieldInstance);
-
-    // console.log(this.cardsListInstance.getValue());
-
 
     if (!this.cardsListInstance) {
       throw H5PEditor.t('core', 'unknownFieldPath', { ':path': this.cardsListInstance });
