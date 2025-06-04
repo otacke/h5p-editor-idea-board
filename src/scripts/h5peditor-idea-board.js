@@ -127,9 +127,37 @@ export default class IdeaBoard {
 
   makeCardsListInstanceAvailable() {
     this.cardsListInstance = H5PEditor.findField('cards', this.fieldInstance);
+
+    // console.log(this.cardsListInstance.getValue());
+
+
     if (!this.cardsListInstance) {
       throw H5PEditor.t('core', 'unknownFieldPath', { ':path': this.cardsListInstance });
     }
+  }
+
+  addCardGroup(params) {
+    if (!this.cardsListInstance) {
+      return;
+    }
+
+    this.cardsListInstance.addItem(params);
+  }
+
+  removeCardGroup(index) {
+    if (!this.cardsListInstance) {
+      return;
+    }
+
+    this.cardsListInstance.removeItem(index);
+  }
+
+  moveCardGroup(fromIndex, toIndex) {
+    if (!this.cardsListInstance) {
+      return;
+    }
+
+    this.cardsListInstance.moveItem(fromIndex, toIndex);
   }
 
   getCardsListGroupInstance(index) {
