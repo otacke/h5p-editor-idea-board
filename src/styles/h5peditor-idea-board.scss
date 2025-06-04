@@ -1,7 +1,33 @@
 .h5peditor-idea-board {
   display: block;
 
-  .h5p-idea-board-content-form .field-name-contentTypeGroup .field-name-backgroundColor {
-    display: none;
+  .h5p-idea-board-content-form {
+    > .field.library {
+      .h5p-editor-flex-wrapper {
+        display: none;
+      }
+
+      select[id^="field-contenttype-"] {
+        display: none;
+      }
+
+      .libwrap {
+        margin-top: -20px;
+      }
+    }
+
+    .field-name-backgroundColor {
+        display: none;
+      }
+
+    .libwrap.h5p-editabletext-editor .field-name-behaviour {
+      display: none; // Don't need this as subcontent
+    }
+
+    .libwrap.h5p-editablemedium-editor:not(:has(.libwrap.h5p-image-editor)) {
+      >.field-name-behaviour{
+        display: none; // ShowWhen widget not working in editor overlay
+      }
+    }
   }
 }
