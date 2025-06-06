@@ -1,3 +1,5 @@
+import { htmlToText, textToCardHTMLs } from './services/util.js';
+
 export default class IdeaBoard {
 
   /**
@@ -217,5 +219,18 @@ export default class IdeaBoard {
   updateValue(values) {
     this.params = values;
     this.setValue(this.field, this.params);
+  }
+
+  getTextualRepresentation() {
+    return this.params.cards
+      .filter((card) => card.contentType.library.startsWith('H5P.EditableText'))
+      .map((card) => htmlToText(card.contentType.params.text))
+      .join('\n\n');
+  }
+
+  setFromTextualRepresentation(text) {
+    const cardHTMLs = textToCardHTMLs(text);
+    this.ideaBoardView.clearBoard();
+    this.ideaBoardView.addTextCards(cardHTMLs);
   }
 }
