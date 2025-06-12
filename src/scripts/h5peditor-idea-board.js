@@ -43,7 +43,7 @@ export default class IdeaBoard {
 
     const viewUberName = Object
       .keys(H5PEditor.loadedCallbacks)
-      .filter((key) => key.startsWith('H5P.IdeaBoard'))
+      .filter((key) => key.startsWith('H5P.IdeaBoard '))
       .shift();
 
     this.ideaBoardView = H5P.newRunnable(
