@@ -1,4 +1,4 @@
-import { htmlToText, textToCardHTMLs } from './services/util.js';
+import { callOnceVisible, htmlToText, textToCardHTMLs } from './services/util.js';
 
 export default class IdeaBoard {
 
@@ -82,6 +82,10 @@ export default class IdeaBoard {
    * @param {H5P.jQuery} $wrapper Wrapper.
    */
   appendTo($wrapper) {
+    callOnceVisible(this.$container.get(0), () => {
+      this.ideaBoardView.trigger('resize');
+    });
+
     // H5P group widget does not initialize correctly before attached somewhere.
     const nirvanaDOM = document.createElement('div');
     this.fieldInstance.appendTo(H5P.jQuery(nirvanaDOM));
