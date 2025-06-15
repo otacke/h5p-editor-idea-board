@@ -82,14 +82,14 @@ export const textToCardHTMLs = (text) => {
 };
 
 /**
- * Call callback function whenever dom element gets visible in viewport.
+ * Call callback function once dom element gets visible in viewport.
  * @async
  * @param {HTMLElement} dom DOM element to wait for.
  * @param {function} callback Function to call once DOM element is visible.
  * @param {object} [options] IntersectionObserver options.
  * @returns {IntersectionObserver} Promise for IntersectionObserver.
  */
-export const callOnVisibilityChange = async (dom, callback, options = {}) => {
+export const callOnceVisible = async (dom, callback, options = {}) => {
   if (typeof dom !== 'object' || typeof callback !== 'function') {
     return; // Invalid arguments
   }
@@ -106,6 +106,9 @@ export const callOnVisibilityChange = async (dom, callback, options = {}) => {
       // Get started once visible and ready
       const observer = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
+          observer.unobserve(dom);
+          observer.disconnect();
+
           callback();
         }
       }, {
