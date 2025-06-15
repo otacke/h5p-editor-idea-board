@@ -1,4 +1,4 @@
-import { callOnceVisible, htmlToText, textToCardHTMLs } from './services/util.js';
+import { callOnVisibilityChange, htmlToText, textToCardHTMLs } from './services/util.js';
 
 export default class IdeaBoard {
 
@@ -82,7 +82,10 @@ export default class IdeaBoard {
    * @param {H5P.jQuery} $wrapper Wrapper.
    */
   appendTo($wrapper) {
-    callOnceVisible(this.$container.get(0), () => {
+    /**
+     * Workaround for H5P.VerticalTabs that does not call a resize event when changing tabs.
+     */
+    callOnVisibilityChange(this.$container.get(0), () => {
       this.ideaBoardView.trigger('resize');
     });
 
