@@ -129,6 +129,9 @@ export default class IdeaBoard {
     this.makeCardsListInstanceAvailable();
     this.initializeBackgroundImage();
     this.initializeBackgroundColor();
+
+    // Workaround for H5PEditor core library widget that does not inform about ready state.
+    this.parent.trigger('ready');
   }
 
   makeCardsListInstanceAvailable() {
@@ -236,5 +239,9 @@ export default class IdeaBoard {
     const cardHTMLs = textToCardHTMLs(text);
     this.ideaBoardView.clearBoard();
     this.ideaBoardView.addTextCards(cardHTMLs);
+  }
+
+  toggleBoardVisibility(state) {
+    this.ideaBoardView.toggleBoardVisibility(state);
   }
 }
