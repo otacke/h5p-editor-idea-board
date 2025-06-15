@@ -134,7 +134,9 @@ export default class IdeaBoard {
     this.initializeBackgroundColor();
 
     // Workaround for H5PEditor core library widget that does not inform about ready state.
-    this.parent.trigger('ready');
+    if (!(this.parent instanceof H5PEditor.Form)) {
+      this.parent.trigger?.('ready');
+    }
   }
 
   makeCardsListInstanceAvailable() {
