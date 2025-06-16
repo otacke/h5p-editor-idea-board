@@ -68,6 +68,10 @@ export default class IdeaBoard {
     });
   }
 
+  /**
+   * Handle ready state.
+   * @param {function} callback Callback to be invoked when ready.
+   */
   ready(callback) {
     if (this.passReadies) {
       this.parent.ready(callback);
@@ -139,6 +143,9 @@ export default class IdeaBoard {
     }
   }
 
+  /**
+   * Make cards list instance available.
+   */
   makeCardsListInstanceAvailable() {
     this.cardsListInstance = H5PEditor.findField('cards', this.fieldInstance);
 
@@ -147,6 +154,10 @@ export default class IdeaBoard {
     }
   }
 
+  /**
+   * Add a new card group to the board.
+   * @param {object} params Parameters for the new card group.
+   */
   addCardGroup(params) {
     if (!this.cardsListInstance) {
       return;
@@ -155,6 +166,10 @@ export default class IdeaBoard {
     this.cardsListInstance.addItem(params);
   }
 
+  /**
+   * Remove a card group from the board.
+   * @param {number} index Index of the card group to remove.
+   */
   removeCardGroup(index) {
     if (!this.cardsListInstance) {
       return;
@@ -163,6 +178,11 @@ export default class IdeaBoard {
     this.cardsListInstance.removeItem(index);
   }
 
+  /**
+   * Move a card group from one index to another.
+   * @param {number} fromIndex Index to move the card group from.
+   * @param {number} toIndex Index to move the card group to.
+   */
   moveCardGroup(fromIndex, toIndex) {
     if (!this.cardsListInstance) {
       return;
@@ -171,6 +191,11 @@ export default class IdeaBoard {
     this.cardsListInstance.moveItem(fromIndex, toIndex);
   }
 
+  /**
+   * Get the instance of a card group at a specific index.
+   * @param {number} index Index of the card group.
+   * @returns {object|boolean} The card group instance or false if not found.
+   */
   getCardsListGroupInstance(index) {
     if (!this.cardsListInstance) {
       return false;
@@ -233,6 +258,10 @@ export default class IdeaBoard {
     this.setValue(this.field, this.params);
   }
 
+  /**
+   * Get textual representation of the board.
+   * @returns {string} Textual representation of the board.
+   */
   getTextualRepresentation() {
     return this.params.cards
       .filter((card) => card.contentType.library.startsWith('H5P.EditableText'))
@@ -240,12 +269,20 @@ export default class IdeaBoard {
       .join('\n\n');
   }
 
+  /**
+   * Set the board from a textual representation.
+   * @param {string} text Textual representation of the board.
+   */
   setFromTextualRepresentation(text) {
     const cardHTMLs = textToCardHTMLs(text);
     this.ideaBoardView.clearBoard();
     this.ideaBoardView.addTextCards(cardHTMLs);
   }
 
+  /**
+   * Toggle the visibility of the board.
+   * @param {boolean} state True to show the board, false to hide it.
+   */
   toggleBoardVisibility(state) {
     this.ideaBoardView.toggleBoardVisibility(state);
   }
