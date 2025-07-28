@@ -1,6 +1,6 @@
 import { callOnceVisible, htmlToText, textToCardHTMLs } from './services/util.js';
 
-export default class IdeaBoard {
+export default class IdeaBoard extends H5P.EventDispatcher {
 
   /**
    * @class
@@ -10,6 +10,8 @@ export default class IdeaBoard {
    * @param {function} setValue Callback to set parameters.
    */
   constructor(parent, field, params, setValue) {
+    super();
+
     this.parent = parent;
     this.field = field;
     this.params = params;
@@ -136,6 +138,8 @@ export default class IdeaBoard {
     this.makeCardsListInstanceAvailable();
     this.initializeBackgroundImage();
     this.initializeBackgroundColor();
+
+    this.initializeTitleChangeListener();
 
     // Workaround for H5PEditor core library widget that does not inform about ready state.
     if (!(this.parent instanceof H5PEditor.Form)) {
@@ -285,5 +289,28 @@ export default class IdeaBoard {
    */
   toggleBoardVisibility(state) {
     this.ideaBoardView.toggleBoardVisibility(state);
+  }
+
+  /**
+   * Initialize title change listener.
+   */
+  initializeTitleChangeListener() {
+    this.coreTitleField = this.$container[0].parentNode?.querySelector('.field-name-extraTitle input.h5peditor-text');
+    if (!this.coreTitleField) {
+      return;
+    }
+
+    this.coreTitleField.addEventListener('change', () => {
+      this.trigger('titleChanged', { title: this.getCoreTitleFieldTitle() });
+    });
+    this.trigger('titleChanged', { title: this.getCoreTitleFieldTitle() });
+  }
+
+  /**
+   * Get the title from the core title field.
+   * @returns {string} The title from the core title field.
+   */
+  getCoreTitleFieldTitle() {
+    return this.coreTitleField.value;
   }
 }
