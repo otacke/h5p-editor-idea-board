@@ -258,6 +258,17 @@ export default class IdeaBoard extends H5P.EventDispatcher {
    * @param {object} values Values to be stored. Must match the field's params!
    */
   updateValue(values) {
+    values.cards = (values.cards || []).map((card) => {
+
+      card.telemetry = card.telemetry || {};
+      card.telemetry.height = `${card.telemetry.height ?? 10}`;
+      card.telemetry.width = `${card.telemetry.width ?? 10}`;
+      card.telemetry.x = `${card.telemetry.x ?? 0}`;
+      card.telemetry.y = `${card.telemetry.y ?? 0}`;
+
+      return card;
+    });
+
     this.params = values;
     this.setValue(this.field, this.params);
   }
