@@ -1,5 +1,11 @@
 import { callOnceVisible, htmlToText, textToCardHTMLs } from './services/util.js';
 
+/** @constant {number} DEFAULT_CARD_HEIGHT Default height of a card */
+const DEFAULT_CARD_HEIGHT = 10;
+
+/** @constant {number} DEFAULT_CARD_WIDTH Default width of a card */
+const DEFAULT_CARD_WIDTH = 10;
+
 export default class IdeaBoard extends H5P.EventDispatcher {
 
   /**
@@ -24,9 +30,7 @@ export default class IdeaBoard extends H5P.EventDispatcher {
     this.passReadies = true;
 
     // DOM
-    this.$container = H5P.jQuery('<div>', {
-      class: 'h5peditor-idea-board'
-    });
+    this.$container = H5P.jQuery('<div>', { class: 'h5peditor-idea-board' });
 
     // Instantiate original field (or create your own and call setValue)
     this.fieldInstance = new H5PEditor.widgets[this.field.type](this.parent, this.field, this.params, () => {});
@@ -57,7 +61,7 @@ export default class IdeaBoard extends H5P.EventDispatcher {
       H5PEditor.contentId,
       undefined,
       false,
-      { IdeaBoardEditor: this }
+      { IdeaBoardEditor: this },
     );
 
     this.parent.ready(() => {
@@ -261,8 +265,8 @@ export default class IdeaBoard extends H5P.EventDispatcher {
     values.cards = (values.cards || []).map((card) => {
 
       card.telemetry = card.telemetry || {};
-      card.telemetry.height = `${card.telemetry.height ?? 10}`;
-      card.telemetry.width = `${card.telemetry.width ?? 10}`;
+      card.telemetry.height = `${card.telemetry.height ?? DEFAULT_CARD_HEIGHT}`;
+      card.telemetry.width = `${card.telemetry.width ?? DEFAULT_CARD_WIDTH}`;
       card.telemetry.x = `${card.telemetry.x ?? 0}`;
       card.telemetry.y = `${card.telemetry.y ?? 0}`;
 
